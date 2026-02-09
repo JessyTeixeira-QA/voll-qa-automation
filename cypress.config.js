@@ -9,7 +9,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:3000/',
-    video: false,
+    video: true,
     reporter: 'mochawesome',
     reporterOptions: {
       reportDir: 'cypress/results',
