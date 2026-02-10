@@ -1,39 +1,38 @@
-class LoginPage {
-    // Selectors
-    elements = {
-        emailInput: () => cy.get('[data-test="inputLoginEmail"]'),
-        passwordInput: () => cy.get('[data-test="inputLoginSenha"]'),
-        submitButton: () => cy.get('[data-test="botaoTeste"]'),
-        errorMessage: () => cy.get('.error-message'), // Hypothetical, adjust if needed
+class PaginaLogin {
+    // Seletores
+    elementos = {
+        campoEmail: () => cy.get('[data-test="inputLoginEmail"]'),
+        campoSenha: () => cy.get('[data-test="inputLoginSenha"]'),
+        botaoEntrar: () => cy.get('[data-test="botaoTeste"]'),
     }
 
-    // Actions
-    visit() {
+    // Ações
+    acessar() {
         cy.visit('/login');
         return this;
     }
 
-    fillEmail(email) {
-        this.elements.emailInput().should('be.visible').type(email);
+    preencherEmail(email) {
+        this.elementos.campoEmail().should('be.visible').type(email);
         return this;
     }
 
-    fillPassword(password) {
-        this.elements.passwordInput().should('be.visible').type(password, { log: false });
+    preencherSenha(senha) {
+        this.elementos.campoSenha().should('be.visible').type(senha, { log: false });
         return this;
     }
 
-    submit() {
-        this.elements.submitButton().should('be.enabled').click();
+    enviar() {
+        this.elementos.botaoEntrar().should('be.enabled').click();
     }
 
-    // High-level flow
-    login(email, password) {
-        this.visit();
-        this.fillEmail(email);
-        this.fillPassword(password);
-        this.submit();
+    // Fluxo de alto nível
+    realizarLogin(email, senha) {
+        this.acessar();
+        this.preencherEmail(email);
+        this.preencherSenha(senha);
+        this.enviar();
     }
 }
 
-export default new LoginPage();
+export default new PaginaLogin();

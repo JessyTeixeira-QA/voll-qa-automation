@@ -1,37 +1,36 @@
-class DashboardPage {
-    // Selectors
-    elements = {
-        addSpecialistButton: () => cy.contains('Cadastrar especialista'),
-        insuranceCheckbox: () => cy.get('[type="checkbox"]').first(),
-        insuranceOptions: () => cy.get('.MuiFormGroup-root').children(),
-        logoutButton: () => cy.get('[data-test="logout-button"]'), // Hypothetical
+class PaginaDashboard {
+    // Seletores
+    elementos = {
+        botaoAdicionarEspecialista: () => cy.contains('Cadastrar especialista'),
+        checkboxPlanoSaude: () => cy.get('[type="checkbox"]').first(),
+        opcoesPlanoSaude: () => cy.get('.MuiFormGroup-root').children(),
     }
 
-    // Actions
-    visit() {
+    // Ações
+    acessar() {
         cy.visit('/dashboard');
         return this;
     }
 
-    openSpecialistModal() {
-        this.elements.addSpecialistButton().should('be.visible').click();
+    abrirModalEspecialista() {
+        this.elementos.botaoAdicionarEspecialista().should('be.visible').click();
         return this;
     }
 
-    toggleInsurance() {
-        this.elements.insuranceCheckbox().check();
+    ativarPlanosSaude() {
+        this.elementos.checkboxPlanoSaude().check();
         return this;
     }
 
-    selectPlans(plans) {
-        cy.get('[type="checkbox"]').check(plans);
+    selecionarPlanos(planos) {
+        cy.get('[type="checkbox"]').check(planos);
         return this;
     }
 
-    verifyDashboardLoaded() {
+    validarCarregamento() {
         cy.url().should('include', '/dashboard');
         return this;
     }
 }
 
-export default new DashboardPage();
+export default new PaginaDashboard();

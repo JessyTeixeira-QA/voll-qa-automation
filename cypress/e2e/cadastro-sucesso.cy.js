@@ -1,10 +1,10 @@
 import { fakerPT_BR as faker } from '@faker-js/faker';
-import RegisterPage from '../support/pages/RegisterPage';
-import LoginPage from '../support/pages/LoginPage';
+import PaginaCadastro from '../support/pages/RegisterPage';
+import PaginaLogin from '../support/pages/LoginPage';
 
 describe('Clinic Registration Flow', () => {
     beforeEach(() => {
-        RegisterPage.visit();
+        PaginaCadastro.acessar();
     });
 
     it('should navigate to registration page from home', () => {
@@ -14,37 +14,36 @@ describe('Clinic Registration Flow', () => {
     });
 
     it('should validate the multi-step registration process', () => {
-        const password = faker.internet.password({ length: 10 });
-        const clinicData = {
-            name: faker.company.name(),
+        const senha = faker.internet.password({ length: 10 });
+        const dadosClinica = {
+            nome: faker.company.name(),
             cnpj: faker.string.numeric(14),
             email: faker.internet.email(),
-            phone: faker.phone.number(),
+            telefone: faker.phone.number(),
             cep: faker.location.zipCode('########'),
-            street: faker.location.street(),
-            number: faker.location.buildingNumber(),
-            complement: faker.location.secondaryAddress(),
-            state: faker.location.state({ abbreviated: true })
+            rua: faker.location.street(),
+            numero: faker.location.buildingNumber(),
+            complemento: faker.location.secondaryAddress(),
+            estado: faker.location.state({ abbreviated: true })
         };
 
-        // Step 1: Basic Info
-        RegisterPage.fillStep1(clinicData.name, clinicData.cnpj, clinicData.email, password)
-                    .goToStep2();
+        // Passo 1: Informações Básicas
+        PaginaCadastro.preencherPasso1(dadosClinica.nome, dadosClinica.cnpj, dadosClinica.email, senha)
+                      .irParaPasso2();
         
         cy.contains('h2', 'Agora, os dados técnicos:').should('be.visible');
 
-        // Step 2: Technical Info
-        RegisterPage.fillStep2({
-            phone: clinicData.phone,
-            cep: clinicData.cep,
-            street: clinicData.street,
-            number: clinicData.number,
-            complement: clinicData.complement,
-            state: clinicData.state
-        }).submit();
+        // Passo 2: Informações Técnicas
+        PaginaCadastro.preencherPasso2({
+            telefone: dadosClinica.telefone,
+            cep: dadosClinica.cep,
+            rua: dadosClinica.rua,
+            numero: dadosClinica.numero,
+            complemento: dadosClinica.complemento,
+            estado: dadosClinica.estado
+        }).finalizar();
 
-        // Verification
+        // Verificação
         cy.location('pathname').should('equal', '/login');
-        cy.log('Registration completed successfully for: ' + clinicData.email);
     });
 });

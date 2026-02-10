@@ -1,26 +1,25 @@
-import LoginPage from '../support/pages/LoginPage';
-import DashboardPage from '../support/pages/DashboardPage';
+import PaginaLogin from '../support/pages/LoginPage';
+import PaginaDashboard from '../support/pages/DashboardPage';
 
 describe('Authentication Flow - Clinic', () => {
     const email = Cypress.env('email');
-    const password = Cypress.env('senha');
+    const senha = Cypress.env('senha');
 
     beforeEach(() => {
-        LoginPage.visit();
+        PaginaLogin.acessar();
     });
 
     it('should successfully login with valid credentials', () => {
-        LoginPage.fillEmail(email)
-                 .fillPassword(password)
-                 .submit();
+        PaginaLogin.preencherEmail(email)
+                   .preencherSenha(senha)
+                   .enviar();
         
-        DashboardPage.verifyDashboardLoaded();
+        PaginaDashboard.validarCarregamento();
     });
 
     it('should maintain session using custom login command', () => {
-        // Professional use of session persistence
-        cy.login(email, password);
-        DashboardPage.visit()
-                     .verifyDashboardLoaded();
+        cy.login(email, senha);
+        PaginaDashboard.acessar()
+                       .validarCarregamento();
     });
 });
