@@ -1,45 +1,45 @@
 # Vollmed QA Automation 🏥
 
-![Cypress](https://img.shields.io/badge/-cypress-%23E9E9E9?style=for-the-badge&logo=cypress&logoColor=17202C)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Testing Library](https://img.shields.io/badge/-Testing%20Library-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
+[![Cypress](https://img.shields.io/badge/-cypress-%23E9E9E9?style=for-the-badge&logo=cypress&logoColor=17202C)](https://www.cypress.io/)
+[![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Faker](https://img.shields.io/badge/Data%20Gen-Faker.js-green?style=for-the-badge)](https://fakerjs.dev/)
 
-This repository contains the automated end-to-end (E2E) and API testing suite for the **Vollmed** platform, a medical management system. The project uses **Cypress** with a professional architecture focused on maintainability and scalability.
+A professional end-to-end (E2E) and API testing suite for the **Vollmed** medical management platform. This project implements industry-standard automation patterns to ensure high reliability and maintainability.
 
 ## 🚀 Project Overview
 
-The automation suite covers critical user journeys, including:
-- **Clinic Registration:** Full flow with dynamic data generation.
-- **Authentication:** Secure login via UI and API.
-- **Dashboard Management:** Specialist registration and insurance plan configuration.
-- **API Testing:** Validation of authentication and resource endpoints.
+The automation suite covers the critical business paths of the Vollmed ecosystem:
+- **Clinic Lifecycle:** From registration with dynamic data to authenticated management.
+- **Authentication:** Multi-method validation (UI-based and API-driven).
+- **Specialist Management:** Modal-driven workflows and insurance configuration.
+- **Data Integrity:** Real-time validation of form fields and API responses.
 
-## 🏗️ Architecture
+## 🏗️ Professional Architecture
 
-The project follows industry best practices:
-- **Page Object Model (POM):** Encapsulates page logic to reduce duplication and improve readability.
-- **Custom Commands:** Reusable utility functions for common actions (e.g., `cy.login`).
-- **Data Generation:** Uses `@faker-js/faker` for realistic and unique test data.
-- **Environment Configuration:** Secure handling of credentials and API endpoints via `cypress.config.js`.
+This project is built with scalability in mind, utilizing:
+- **Page Object Model (POM):** Decouples test specifications from UI selectors, centralizing maintenance in `cypress/support/pages`.
+- **Custom Commands:** Abstracts complex sequences (like session-based login) into reusable commands.
+- **Dynamic Data Injection:** Uses `@faker-js/faker` for localized (PT-BR) data generation, avoiding test pollution and hardcoded dependencies.
+- **Session Management:** Implements `cy.session` to drastically reduce test execution time by persisting authentication states.
 
 ## 📁 Project Structure
 
 ```text
 cypress/
-├── e2e/               # Test specifications (E2E and API)
-├── fixtures/          # Static test data
+├── e2e/               # Test specifications (Feature-based)
+├── fixtures/          # Static data for edge cases
 ├── support/
-│   ├── pages/         # Page Object classes
-│   ├── commands.js    # Custom Cypress commands
-│   └── e2e.js         # Global configuration and hooks
-└── results/           # Test execution reports (Mochawesome)
+│   ├── pages/         # Page Object Model classes (POM)
+│   ├── commands.js    # Global custom commands
+│   └── e2e.js         # Framework configuration and hooks
+└── results/           # Execution reports and artifacts
 ```
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- **Node.js** (v18.x or higher)
+- **npm** or **yarn**
 
 ### Installation
 1. Clone the repository:
@@ -53,29 +53,17 @@ cypress/
 
 ### Running Tests
 
-**Open Cypress Test Runner (Interactive Mode):**
-```bash
-npx cypress open
-```
+| Mode | Command | Description |
+| :--- | :--- | :--- |
+| **Interactive** | `npx cypress open` | Opens the Cypress Test Runner for debugging. |
+| **Headless** | `npx cypress run` | Executes all tests in the background. |
+| **Tablet** | `npm run test:tablet` | Runs tests in tablet-specific viewport. |
 
-**Run All Tests (Headless Mode):**
-```bash
-npx cypress run
-```
-
-**Run Tests in Specific Viewport (Tablet):**
-```bash
-npm run test:tablet
-```
-
-## 📊 Reporting
-Test results are automatically generated using **Mochawesome**. After execution, you can find the HTML reports in the `cypress/results` directory.
-
-## 🧪 Best Practices Implemented
-- ✅ **Independent Tests:** Each test can run in isolation.
-- ✅ **Dynamic Data:** No hardcoded data for registration flows.
-- ✅ **Wait Strategy:** Uses built-in Cypress retries and assertions instead of fixed `cy.wait()`.
-- ✅ **Clean Code:** ESLint integration for consistent code style.
+## 🧪 Testing Best Practices
+- ✅ **Independence:** Each test file is self-contained and manages its own state.
+- ✅ **Reliability:** Leverages Cypress's automatic waiting and retry logic over static `cy.wait()`.
+- ✅ **Clean Code:** Adheres to ESLint rules for consistent JavaScript styling.
+- ✅ **Readability:** Uses descriptive Gherkin-style `it` blocks for clear documentation of test intent.
 
 ---
-Developed with ❤️ by [Jessy Teixeira](https://github.com/JessyTeixeira-QA)
+Developed by [Jessy Teixeira](https://github.com/JessyTeixeira-QA) | Professionalized by Manus AI

@@ -1,21 +1,26 @@
 import LoginPage from '../support/pages/LoginPage';
+import DashboardPage from '../support/pages/DashboardPage';
 
-describe('Login Page', () => {
+describe('Authentication Flow - Clinic', () => {
+    const email = Cypress.env('email');
+    const password = Cypress.env('senha');
+
     beforeEach(() => {
         LoginPage.visit();
     });
 
-    it('Should login successfully with valid credentials', () => {
-        LoginPage.fillEmail(Cypress.env('email'));
-        LoginPage.fillPassword(Cypress.env('senha'));
-        LoginPage.submit();
+    it('should successfully login with valid credentials', () => {
+        LoginPage.fillEmail(email)
+                 .fillPassword(password)
+                 .submit();
         
-        cy.url().should('include', '/dashboard');
+        DashboardPage.verifyDashboardLoaded();
     });
 
-    it('Should login using custom command for session persistence', () => {
-        cy.login(Cypress.env('email'), Cypress.env('senha'));
-        cy.visit('/dashboard');
-        cy.url().should('include', '/dashboard');
+    it('should maintain session using custom login command', () => {
+        // Professional use of session persistence
+        cy.login(email, password);
+        DashboardPage.visit()
+                     .verifyDashboardLoaded();
     });
 });

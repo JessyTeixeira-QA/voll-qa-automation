@@ -1,22 +1,36 @@
 class DashboardPage {
+    // Selectors
+    elements = {
+        addSpecialistButton: () => cy.contains('Cadastrar especialista'),
+        insuranceCheckbox: () => cy.get('[type="checkbox"]').first(),
+        insuranceOptions: () => cy.get('.MuiFormGroup-root').children(),
+        logoutButton: () => cy.get('[data-test="logout-button"]'), // Hypothetical
+    }
+
+    // Actions
     visit() {
         cy.visit('/dashboard');
+        return this;
     }
 
     openSpecialistModal() {
-        cy.contains('Cadastrar especialista').should('be.visible').click();
+        this.elements.addSpecialistButton().should('be.visible').click();
+        return this;
     }
 
-    checkInsuranceBox() {
-        cy.get('[type="checkbox"]').first().check();
+    toggleInsurance() {
+        this.elements.insuranceCheckbox().check();
+        return this;
     }
 
-    selectInsurances(insurances) {
-        cy.get('[type="checkbox"]').check(insurances);
+    selectPlans(plans) {
+        cy.get('[type="checkbox"]').check(plans);
+        return this;
     }
 
-    getInsuranceCheckboxes() {
-        return cy.get('.MuiFormGroup-root').children();
+    verifyDashboardLoaded() {
+        cy.url().should('include', '/dashboard');
+        return this;
     }
 }
 

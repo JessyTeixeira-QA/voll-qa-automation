@@ -1,50 +1,50 @@
 import { fakerPT_BR as faker } from '@faker-js/faker';
 import RegisterPage from '../support/pages/RegisterPage';
+import LoginPage from '../support/pages/LoginPage';
 
-describe('Registration Page', () => {
+describe('Clinic Registration Flow', () => {
     beforeEach(() => {
         RegisterPage.visit();
     });
 
-    it('Should redirect to registration page from home', () => {
+    it('should navigate to registration page from home', () => {
         cy.visit('/');
         cy.get('[href="/cadastro"]').click();
         cy.location('pathname').should('equal', '/cadastro');
     });
 
-    it('Should complete first step of registration and show technical data area', () => {
-        RegisterPage.fillStep1(
-            'Catarina P',
-            '12598432',
-            'catarina@email.com',
-            'Senha123'
-        );
-        RegisterPage.goToStep2();
+    it('should validate the multi-step registration process', () => {
+        const password = faker.internet.password({ length: 10 });
+        const clinicData = {
+            name: faker.company.name(),
+            cnpj: faker.string.numeric(14),
+            email: faker.internet.email(),
+            phone: faker.phone.number(),
+            cep: faker.location.zipCode('########'),
+            street: faker.location.street(),
+            number: faker.location.buildingNumber(),
+            complement: faker.location.secondaryAddress(),
+            state: faker.location.state({ abbreviated: true })
+        };
+
+        // Step 1: Basic Info
+        RegisterPage.fillStep1(clinicData.name, clinicData.cnpj, clinicData.email, password)
+                    .goToStep2();
         
         cy.contains('h2', 'Agora, os dados técnicos:').should('be.visible');
-    });
 
-    it('Should register a clinic successfully', () => {
-        const password = faker.internet.password({ length: 8 });
-        
-        RegisterPage.fillStep1(
-            faker.company.name(),
-            faker.string.numeric(14),
-            faker.internet.email(),
-            password
-        );
-        RegisterPage.goToStep2();
-        
-        RegisterPage.fillStep2(
-            faker.phone.number(),
-            faker.location.zipCode('########'),
-            faker.location.street(),
-            faker.location.buildingNumber(),
-            faker.location.secondaryAddress(),
-            faker.location.state({ abbreviated: true })
-        );
-        
-        RegisterPage.submit();
+        // Step 2: Technical Info
+        RegisterPage.fillStep2({
+            phone: clinicData.phone,
+            cep: clinicData.cep,
+            street: clinicData.street,
+            number: clinicData.number,
+            complement: clinicData.complement,
+            state: clinicData.state
+        }).submit();
+
+        // Verification
         cy.location('pathname').should('equal', '/login');
+        cy.log('Registration completed successfully for: ' + clinicData.email);
     });
 });

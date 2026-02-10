@@ -1,20 +1,33 @@
 class LoginPage {
+    // Selectors
+    elements = {
+        emailInput: () => cy.get('[data-test="inputLoginEmail"]'),
+        passwordInput: () => cy.get('[data-test="inputLoginSenha"]'),
+        submitButton: () => cy.get('[data-test="botaoTeste"]'),
+        errorMessage: () => cy.get('.error-message'), // Hypothetical, adjust if needed
+    }
+
+    // Actions
     visit() {
         cy.visit('/login');
+        return this;
     }
 
     fillEmail(email) {
-        cy.get('[data-test="inputLoginEmail"]').type(email);
+        this.elements.emailInput().should('be.visible').type(email);
+        return this;
     }
 
     fillPassword(password) {
-        cy.get('[data-test="inputLoginSenha"]').type(password, { log: false });
+        this.elements.passwordInput().should('be.visible').type(password, { log: false });
+        return this;
     }
 
     submit() {
-        cy.get('[data-test="botaoTeste"]').should('be.visible').click();
+        this.elements.submitButton().should('be.enabled').click();
     }
 
+    // High-level flow
     login(email, password) {
         this.visit();
         this.fillEmail(email);
