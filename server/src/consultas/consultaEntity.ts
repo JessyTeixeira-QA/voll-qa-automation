@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Relation } from 'typeorm';
-import { Paciente } from '../pacientes/pacienteEntity';
-import { Especialista } from '../especialistas/EspecialistaEntity';
+import { Paciente } from '../pacientes/pacienteEntity.js';
+import { Especialista } from '../especialistas/EspecialistaEntity.js';
 
 @Entity('consultas')
 export class Consulta {

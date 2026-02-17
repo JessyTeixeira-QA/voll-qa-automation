@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import jwt from 'jsonwebtoken'
-import { type Role } from './roles'
+import { type Role } from './roles.js'
 import { AppError, Status } from '../error/ErrorHandler.js'
 
 export function verificaTokenJWT (...role: Role[]) {
