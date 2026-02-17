@@ -1,0 +1,19 @@
+
+> api-voll_med@1.0.0 start
+> tsc-watch --onSuccess "node ./build/server.js"
+
+c19:31:10 - Starting compilation in watch mode...
+
+src/auth/authEntity.ts[36m(3,36): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './IAutencavel.js'?
+src/auth/verificaTokenJWT.ts[36m(3,27): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './roles.js'?
+src/consultas/consultaEntity.ts[36m(2,26): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../pacientes/pacienteEntity.js'?
+src/consultas/consultaEntity.ts[36m(3,30): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../especialistas/EspecialistaEntity.js'?
+
+19:31:16 -[31m Found 4 errors. Watching for file changes.[39m
+c19:32:12 - File change detected. Starting incremental compilation...
+
+src/auth/verificaTokenJWT.ts[36m(3,27): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './roles.js'?
+src/consultas/consultaEntity.ts[36m(2,26): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../pacientes/pacienteEntity.js'?
+src/consultas/consultaEntity.ts[36m(3,30): error TS2835: [39mRelative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../especialistas/EspecialistaEntity.js'?
+
+19:32:13 -[31m Found 3 errors. Watching for file changes.[39m

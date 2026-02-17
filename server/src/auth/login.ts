@@ -18,6 +18,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       throw new AppError('Não encontrado!', 404)
     } else {
       const { id, rota, role, senha: senhaAuth } = autenticavel
+      console.log('senhaAuth:', senhaAuth);
       const senhaCorrespondente = decryptPassword(senhaAuth)
 
       if (senha !== senhaCorrespondente) {

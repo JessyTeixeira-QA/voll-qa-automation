@@ -2,31 +2,29 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Re
 import { Paciente } from '../pacientes/pacienteEntity.js'
 import { Especialista } from '../especialistas/EspecialistaEntity.js'
 
-@Entity()
+@Entity('avaliacoes')
 export class Avaliacoes {
-  @PrimaryGeneratedColumn('uuid')
-    id: string
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @CreateDateColumn({
-    type: 'text'
-  })
-    createdAt!: Date // Gerar automaticamente e puxar no GET o horário no CRUD
+    @Column("varchar") // Force o tipo aqui
+    descricao: string;
 
-  @ManyToOne(() => Especialista, (especialista) => especialista.avaliacoes)
-    especialista: Relation<Especialista>
+    @Column("int")     // Force o tipo aqui
+    nota: number;
 
-  @ManyToOne(() => Paciente, (paciente) => paciente.avaliacoes)
-    paciente: Relation<Paciente>
+    @Column("int")     // Adicione o tipo para a FK
+    especialistaId: number;
 
-  @Column()
-    nota: number
+    @Column("int")     // Adicione o tipo para a FK
+    pacienteId: number;
 
-  @Column({ nullable: true })
-    descricao: string
+    @CreateDateColumn()
+    createdAt: Date;
 
-  @Column({ nullable: true })
-    especialistaId: string
+    @ManyToOne(() => Especialista, (especialista) => especialista.avaliacoes)
+    especialista: Relation<Especialista>;
 
-  @Column({ nullable: true })
-    pacienteId: number
+    @ManyToOne(() => Paciente, (paciente) => paciente.avaliacoes)
+    paciente: Relation<Paciente>;
 }

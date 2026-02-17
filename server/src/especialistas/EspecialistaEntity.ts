@@ -65,6 +65,7 @@ export class Especialista implements IAutenticavel {
 
   @Column("varchar", { nullable: false })
   role: Role;
+  consultas: any;
 
   constructor(
     nome,

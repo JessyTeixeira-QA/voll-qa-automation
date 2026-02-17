@@ -1,45 +1,30 @@
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Relation } from 'typeorm';
+import { Paciente } from '../pacientes/pacienteEntity';
+import { Especialista } from '../especialistas/EspecialistaEntity';
 
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm'
-import { Especialista } from '../especialistas/EspecialistaEntity.js'
-import { Paciente } from '../pacientes/pacienteEntity.js'
-
-enum Lembrete {
-  email,
-  sms,
-}
-
-enum MotivoCancelamento {
-  paciente_desistiu,
-  médico_cancelou,
-  outros
-}
-
-@Entity()
+@Entity('consultas')
 export class Consulta {
-  @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @ManyToOne(() => Especialista, { eager: true })
-  // @JoinColumn({ name: 'especialista_id' })
-    especialista: Especialista
+  @ManyToOne(() => Especialista, (especialista) => especialista.consultas)
+  especialista: Relation<Especialista>;
 
-  @ManyToOne(() => Paciente, { eager: true })
-  // @JoinColumn({ name: 'paciente_id' })
-    paciente: Paciente
+  @ManyToOne(() => Paciente, (paciente) => paciente.consultas)
+  paciente: Relation<Paciente>;
 
-  @Column({ type: 'datetime', nullable: true })
-    data: Date
+  @Column("varchar")
+  data: Date;
 
-  @Column({ type: 'boolean', default: false })
-    desejaLembrete: boolean
+  @Column("boolean")
+  desejaLembrete: boolean;
 
-  @Column({ type: 'simple-array', nullable: true })
-    lembretes: string[]
+  @Column("simple-array")
+  lembretes: string[];
 
-  @Column({ name: 'motivo_cancelamento', nullable: true })
-    motivoCancelamento: string
+  @Column("varchar")
+  motivoCancelamento: string; // Specify the column type here
 
-  cancelar (motivo: string): void {
-    this.motivoCancelamento = motivo
-  }
+  @CreateDateColumn()
+  createdAt: Date;
 }

@@ -73,7 +73,7 @@ export const listaConsultas = async (
 export const buscaConsultaPorId = async (req: Request, res: Response
 ): Promise<void> => {
   const { id } = req.params
-  const consulta = await AppDataSource.manager.findOne(Consulta, { where: { id }, relations: ['paciente', 'especialista'] })
+  const consulta = await AppDataSource.manager.findOne(Consulta, { where: { id: parseInt(id) }, relations: ['paciente', 'especialista'] })
 
   if (consulta !== null) {
     res.json(consulta)
@@ -93,7 +93,7 @@ export const deletaConsulta = async (
   const { id } = req.params
   const { motivo_cancelamento } = req.body
   const consulta = await AppDataSource.manager.findOne(Consulta, {
-    where: { id }
+    where: { id: parseInt(id) }
   })
 
   if (consulta == null) {
@@ -107,8 +107,8 @@ export const deletaConsulta = async (
     )
   }
 
-  consulta.cancelar = motivo_cancelamento
+  consulta.motivoCancelamento = motivo_cancelamento
 
-  await AppDataSource.manager.delete(Consulta, { id })
+  await AppDataSource.manager.delete(Consulta, { id: parseInt(id) })
   res.json('Consulta cancelada com sucesso')
 }

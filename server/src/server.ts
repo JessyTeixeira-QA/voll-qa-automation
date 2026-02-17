@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import "reflect-metadata";
 import * as dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
@@ -13,6 +14,7 @@ import rotaEspecialista from './especialistas/especialistaRoutes.js'
 import rotaPaciente from './pacientes/pacienteRoutes.js'
 import rotaPlanoDeSaude from './planosDeSaude/planosDeSaudeRoutes.js'
 import errorMiddleware from './error/errorMiddleware.js'
+
 
 dotenv.config({ path: '.env' })
 

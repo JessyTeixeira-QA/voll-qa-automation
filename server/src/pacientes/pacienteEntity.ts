@@ -58,6 +58,7 @@ export class Paciente implements IAutenticavel {
 
   @OneToMany(() => Avaliacoes, (avaliacoes) => avaliacoes.paciente)
     avaliacoes: Relation<Avaliacoes>
+  consultas: any
 
   constructor (
     cpf,

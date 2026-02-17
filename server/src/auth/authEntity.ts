@@ -1,6 +1,6 @@
 import { Role } from './roles.js'
 import { type DataSource, ViewColumn, ViewEntity } from 'typeorm'
-import { type IAutenticavel } from './IAutencavel'
+import { type IAutenticavel } from './IAutencavel.js'
 import { Paciente } from '../pacientes/pacienteEntity.js'
 
 @ViewEntity({
