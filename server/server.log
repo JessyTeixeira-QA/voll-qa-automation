@@ -134,3 +134,79 @@ Emitted 'error' event on Server instance at:
 }
 
 Node.js v24.12.0
+c10:41:27 - File change detected. Starting incremental compilation...
+
+
+10:41:27 -[32m Found 0 errors. Watching for file changes.[39m
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8080
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (/home/jessica/Projetos/vollmed-qa-automation/server/node_modules/express/lib/application.js:635:24)
+    at file:///home/jessica/Projetos/vollmed-qa-automation/server/build/server.js:57:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:413:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 8080
+}
+
+Node.js v24.12.0
+c10:41:48 - File change detected. Starting incremental compilation...
+
+src/useFetch.ts[36m(1,37): error TS2307: [39mCannot find module 'react' or its corresponding type declarations.
+
+10:41:49 -[31m Found 1 error. Watching for file changes.[39m
+c10:43:03 - File change detected. Starting incremental compilation...
+
+src/useFetch.ts[36m(1,37): error TS2307: [39mCannot find module 'react' or its corresponding type declarations.
+
+10:43:03 -[31m Found 1 error. Watching for file changes.[39m
+c10:43:12 - File change detected. Starting incremental compilation...
+
+src/useFetch.ts[36m(1,37): error TS2307: [39mCannot find module 'react' or its corresponding type declarations.
+
+10:43:12 -[31m Found 1 error. Watching for file changes.[39m
+c10:45:20 - File change detected. Starting incremental compilation...
+
+src/useFetch.ts[36m(1,37): error TS2307: [39mCannot find module 'react' or its corresponding type declarations.
+
+10:45:20 -[31m Found 1 error. Watching for file changes.[39m
+c10:45:27 - File change detected. Starting incremental compilation...
+
+
+10:45:33 -[32m Found 0 errors. Watching for file changes.[39m
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8080
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (/home/jessica/Projetos/vollmed-qa-automation/server/node_modules/express/lib/application.js:635:24)
+    at file:///home/jessica/Projetos/vollmed-qa-automation/server/build/server.js:57:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:413:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 8080
+}
+
+Node.js v24.12.0

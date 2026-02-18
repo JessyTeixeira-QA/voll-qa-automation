@@ -3,48 +3,48 @@ on:
   push:
     branches:
       - testes
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        # Para usar 'parallel: true', você precisa de pelo menos 2 máquinas
         containers: [1, 2]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4      
-      - name: Checkout
         uses: actions/checkout@v4
-        with: 
-          path: server      
-      - name: Start Server BackEnd
+
+      - name: Iniciar Servidor BackEnd
         run: |
-          cd server
           npm install
           npm start &
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ]; do
-            echo "Waiting for server to start..."
-            sleep 1
-          done
-          echo "Server is running successfully."
+          # O comando 'until' que você fez está ótimo para garantir a saúde da API
+          timeout 60s bash -c 'until $(curl -sSf http://localhost:8080 > /dev/null); do echo "Aguardando API..."; sleep 2; done'
         working-directory: server
-      - name: Start Web App FrontEnd
+
+      - name: Iniciar Web App FrontEnd
         run: |
-          cd web
           npm install
-          npm start &        
-      - name: Run Cypress Tests
+          # Rodar em background para não travar o workflow
+          npm start & 
+        working-directory: web
+
+      - name: Executar Testes Cypress
         uses: cypress-io/github-action@v6
         with:
           spec: |
             cypress/e2e/cadastro-sucesso.cy.js
             cypress/e2e/login-clinica.cy.js
             cypress/e2e/dashboard.cy.js
-          wait-on: 'http://localhost:3000,http://localhost:8080'
+          # Aumentamos o wait-on-timeout para evitar que o Cypress desista cedo demais
+          wait-on: 'http://localhost:3000, http://localhost:8080'
+          wait-on-timeout: 120
           record: true
           parallel: true
           group: 'Cypress Tests'
         env:
+          # A indentação aqui está correta agora
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#Sempre verifique a indentação do seu arquivo yaml
