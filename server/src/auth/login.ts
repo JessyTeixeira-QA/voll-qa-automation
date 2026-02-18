@@ -18,14 +18,27 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       throw new AppError('Não encontrado!', 404)
     } else {
       const { id, rota, role, senha: senhaAuth } = autenticavel
-      console.log('senhaAuth:', senhaAuth);
-      const senhaCorrespondente = decryptPassword(senhaAuth)
+      
+      if (!process.env.SECRET_KEY) {
+        throw new AppError('Configuração do servidor incompleta (SECRET_KEY ausente).', 500)
+      }
+
+      let senhaCorrespondente: string
+      try {
+        senhaCorrespondente = decryptPassword(senhaAuth)
+      } catch (error) {
+        console.error('Erro ao descriptografar senha:', error)
+        throw new AppError('Erro interno ao processar autenticação.', 500)
+      }
 
       if (senha !== senhaCorrespondente) {
         throw new AppError('Senha incorreta!', 401)
       }
 
-      //process.env.SECRET
+      if (!process.env.SECRET) {
+        throw new AppError('Configuração do servidor incompleta (SECRET ausente).', 500)
+      }
+
       const token = jwt.sign({ id, role }, process.env.SECRET, {
         expiresIn: 86400
       }) // expira em 24 horas
