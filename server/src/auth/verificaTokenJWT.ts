@@ -34,3 +34,5 @@ export function verificaTokenJWT (...role: Role[]) {
     })
   }
 }
+
+export default verificaTokenJWT

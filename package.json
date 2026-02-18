@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:browser:edge": "cypress run --browser edge",
     "test:tablet": "cypress run --config viewportWidth=768 viewportHeight=1024"
+     
   },
   "author": "",
   "license": "ISC",
